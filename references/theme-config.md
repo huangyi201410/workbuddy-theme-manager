@@ -10,7 +10,7 @@ The theme manager reads one JSON file per theme. Keep the file under:
 
 ```json
 {
-  "name": "汪苏泷·罗曼粉",
+  "name": "罗曼粉",
   "wallpaper": "/absolute/path/to/wallpaper.jpg",
   "wallpaperScope": "home",
   "colors": {
@@ -27,7 +27,7 @@ The theme manager reads one JSON file per theme. Keep the file under:
 }
 ```
 
-`name` becomes the generated app name. `wallpaper` is optional; omit it for a color-only theme. Every color accepts a six-digit hexadecimal value. Missing color fields use the 汪苏泷·罗曼粉 defaults.
+`name` becomes the generated app name. `wallpaper` is optional; omit it for a color-only theme. Every color accepts a six-digit hexadecimal value. Missing color fields use the 罗曼粉 defaults.
 
 ## Built-in presets
 
@@ -35,12 +35,12 @@ The ready-to-apply JSON files live in the skill's `presets/` folder. They intent
 
 | Preset | File | Visual direction |
 | --- | --- | --- |
-| 汪苏泷·罗曼粉 | `presets/rose.json` | 现有柔雾粉主题。 |
-| 刘亦菲·月光蓝 | `presets/moonlight-blue.json` | 柔和月光蓝，低饱和冷调。 |
-| 白敬亭·冰川蓝 | `presets/glacier-blue.json` | 清透冰川蓝，偏青色调。 |
-| 赵露思·蜜桃黄 | `presets/peach-yellow.json` | 温暖蜜桃黄，偏奶油色调。 |
-| 檀健次·暮光紫 | `presets/twilight-purple.json` | 低饱和暮光紫。 |
-| 田曦薇·青柠绿 | `presets/lime-green.json` | 清新青柠绿。 |
+| 罗曼粉 | `presets/rose.json` | 现有柔雾粉主题。 |
+| 月光蓝 | `presets/moonlight-blue.json` | 柔和月光蓝，低饱和冷调。 |
+| 冰川蓝 | `presets/glacier-blue.json` | 清透冰川蓝，偏青色调。 |
+| 蜜桃黄 | `presets/peach-yellow.json` | 温暖蜜桃黄，偏奶油色调。 |
+| 暮光紫 | `presets/twilight-purple.json` | 低饱和暮光紫。 |
+| 青柠绿 | `presets/lime-green.json` | 清新青柠绿。 |
 
 For example, the agent can apply the current pink color preset directly:
 
@@ -55,11 +55,11 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mj
 - `main`: place the wallpaper as a low-opacity background layer across the full main-content area. Use only with a quiet image, because every page must remain legible.
 - `none`: suppress the wallpaper even if a path is present.
 
-## 汪苏泷·罗曼粉 preset schema
+## 罗曼粉 preset schema
 
 ```json
 {
-  "name": "汪苏泷·罗曼粉",
+  "name": "罗曼粉",
   "wallpaperScope": "home",
   "colors": {
     "canvas": "#FFF1F6",
@@ -75,11 +75,11 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mj
 }
 ```
 
-## 田曦薇·青柠绿 example
+## 青柠绿 example
 
 ```json
 {
-  "name": "田曦薇·青柠绿",
+  "name": "青柠绿",
   "wallpaper": "/Users/you/Pictures/lime-wallpaper.jpg",
   "wallpaperScope": "home",
   "colors": {
