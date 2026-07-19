@@ -31,18 +31,18 @@ The theme manager reads one JSON file per theme. Keep the file under:
 
 ## Built-in presets
 
-The ready-to-apply JSON files live in the skill's `presets/` folder. They intentionally contain **no wallpaper file**: a wallpaper is personal content and should be supplied locally by each user. Use a preset directly for a color-only theme, or copy it to the user theme folder and add a local `wallpaper` path.
+The ready-to-apply JSON files live in the skill's `presets/` folder. Four presets include a bundled wallpaper under `presets/wallpapers/`; Studio resolves it automatically and the direct engine resolves its path relative to the JSON file. 冰川蓝和蜜桃黄保持纯色，用户可自行选择本地壁纸。
 
 | Preset | File | Visual direction |
 | --- | --- | --- |
-| 罗曼粉 | `presets/rose.json` | 现有柔雾粉主题。 |
-| 月光蓝 | `presets/moonlight-blue.json` | 柔和月光蓝，低饱和冷调。 |
+| 罗曼粉 | `presets/rose.json` | 柔雾粉主题，含预设壁纸。 |
+| 月光蓝 | `presets/moonlight-blue.json` | 柔和月光蓝，含预设壁纸。 |
 | 冰川蓝 | `presets/glacier-blue.json` | 清透冰川蓝，偏青色调。 |
 | 蜜桃黄 | `presets/peach-yellow.json` | 温暖蜜桃黄，偏奶油色调。 |
-| 暮光紫 | `presets/twilight-purple.json` | 低饱和暮光紫。 |
-| 青柠绿 | `presets/lime-green.json` | 清新青柠绿。 |
+| 暮光紫 | `presets/twilight-purple.json` | 低饱和暮光紫，含预设壁纸。 |
+| 青柠绿 | `presets/lime-green.json` | 清新青柠绿，含预设壁纸。 |
 
-For example, the agent can apply the current pink color preset directly:
+For example, the agent can apply the 罗曼粉 preset and its bundled wallpaper directly:
 
 ```bash
 node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mjs" \
@@ -75,12 +75,12 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mj
 }
 ```
 
-## 青柠绿 example
+## 青柠绿 preset example
 
 ```json
 {
   "name": "青柠绿",
-  "wallpaper": "/Users/you/Pictures/lime-wallpaper.jpg",
+  "wallpaper": "wallpapers/lime-green.jpg",
   "wallpaperScope": "home",
   "colors": {
     "canvas": "#F4FBE8",

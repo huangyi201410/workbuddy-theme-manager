@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import {
-  closeSync, copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync,
+  closeSync, copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync,
   renameSync, rmSync, unlinkSync, writeFileSync
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
@@ -163,8 +163,7 @@ function installStudio(openAfter = false) {
     const plist = `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>CFBundleDisplayName</key><string>WorkBuddy Theme Studio</string><key>CFBundleExecutable</key><string>WorkBuddyThemeStudio</string><key>CFBundleIdentifier</key><string>${studioBundleId}</string><key>CFBundlePackageType</key><string>APPL</string><key>CFBundleShortVersionString</key><string>1.0</string><key>CFBundleVersion</key><string>1</string><key>LSMinimumSystemVersion</key><string>13.0</string><key>LSMultipleInstancesProhibited</key><true/><key>NSHighResolutionCapable</key><true/><key>WBThemeEnginePath</key><string>${xml(scriptDir + "/workbuddy-theme-studio.mjs")}</string><key>WBThemeNodePath</key><string>${xml(node)}</string><key>CFBundleURLTypes</key><array><dict><key>CFBundleURLName</key><string>${studioBundleId}</string><key>CFBundleURLSchemes</key><array><string>workbuddy-theme-studio</string></array></dict></array></dict></plist>`;
     writeFileSync(join(contents, "Info.plist"), plist);
     const presetResources = join(resources, "presets");
-    mkdirSync(presetResources, { recursive: true });
-    for (const name of readdirSync(join(scriptDir, "..", "presets"))) copyFileSync(join(scriptDir, "..", "presets", name), join(presetResources, name));
+    cpSync(join(scriptDir, "..", "presets"), presetResources, { recursive: true });
     run(swift, [source, "-parse-as-library", "-o", join(macos, "WorkBuddyThemeStudio"), "-framework", "SwiftUI", "-framework", "AppKit"]);
     run("codesign", ["--force", "--deep", "--sign", "-", studioApp]);
     registerStudioUrlScheme();

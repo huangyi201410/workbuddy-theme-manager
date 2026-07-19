@@ -16,6 +16,7 @@ struct ThemeColors: Codable {
 
 struct ThemePreset: Codable, Identifiable {
     let name: String
+    let wallpaper: String?
     let wallpaperScope: String
     let colors: ThemeColors
     var id: String { name }
@@ -64,8 +65,9 @@ final class StudioModel: ObservableObject {
         selectedPreset = preset.name
         themeName = preset.name
         wallpaperScope = preset.wallpaperScope
+        wallpaperPath = bundledWallpaperPath(for: preset)
         colors = preset.colors
-        status = "已选择 (preset.name) 预设。"
+        status = wallpaperPath.isEmpty ? "已选择 (preset.name) 预设。" : "已选择 (preset.name) 预设及壁纸。"
     }
 
     func chooseWallpaper() {
@@ -120,6 +122,13 @@ final class StudioModel: ObservableObject {
 
     private var nodePath: String {
         Bundle.main.object(forInfoDictionaryKey: "WBThemeNodePath") as? String ?? "/usr/bin/env"
+    }
+
+    private func bundledWallpaperPath(for preset: ThemePreset) -> String {
+        guard let relativePath = preset.wallpaper,
+              let root = Bundle.main.resourceURL?.appendingPathComponent("presets", isDirectory: true) else { return "" }
+        let url = root.appendingPathComponent(relativePath)
+        return FileManager.default.fileExists(atPath: url.path) ? url.path : ""
     }
 
     private func writeThemeConfig() throws -> URL {
