@@ -1,4 +1,4 @@
 interface:
   display_name: "WorkBuddy Theme Manager"
-  short_description: "Apply safe local WorkBuddy themes through chat."
-  default_prompt: "Use $workbuddy-theme-manager to inspect WorkBuddy, prepare a theme, and apply it safely."
+  short_description: "Install and use WorkBuddy Theme Studio safely."
+  default_prompt: "Use $workbuddy-theme-manager to install WorkBuddy Theme Studio and customize my theme."
