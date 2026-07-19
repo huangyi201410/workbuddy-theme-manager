@@ -55,7 +55,8 @@ function loadTheme(themePath) {
   for (const key of Object.keys(defaults)) colors[key] = validateColor(key, colors[key]);
   const wallpaperScope = data.wallpaperScope ?? "home";
   if (!new Set(["home", "main", "none"]).has(wallpaperScope)) fail("wallpaperScope must be home, main, or none");
-  const wallpaper = data.wallpaper ? String(data.wallpaper) : null;
+  const wallpaperValue = data.wallpaper ? String(data.wallpaper).trim() : "";
+  const wallpaper = wallpaperValue ? resolve(dirname(themePath), wallpaperValue) : null;
   if (wallpaperScope !== "none" && wallpaper && !existsSync(wallpaper)) fail(`wallpaper not found: ${wallpaper}`);
   return { name, colors, wallpaper, wallpaperScope };
 }
