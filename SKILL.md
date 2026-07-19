@@ -30,7 +30,7 @@ If compatible, bootstrap Studio and the account-menu entry:
 node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" bootstrap
 ```
 
-This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-theme-studio://open`, fully backs up the official app, and inserts **「主题」** immediately below **「外观」** in the account menu. It does not apply a color theme during bootstrap.
+This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-theme-studio://open`, fully backs up the official app, and inserts **「主题」** immediately below **「外观」** in the account menu. Studio is single-instance: clicking the menu entry again focuses its existing window. It does not apply a color theme during bootstrap.
 
 ## Normal user flow
 

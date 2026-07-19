@@ -214,7 +214,12 @@ struct StudioView: View {
             .padding(24)
         }
         .frame(minWidth: 940, minHeight: 650)
-        .onOpenURL { _ in NSApp.activate(ignoringOtherApps: true) }
+        .onOpenURL { _ in
+            NSApp.activate(ignoringOtherApps: true)
+            DispatchQueue.main.async {
+                NSApp.windows.first(where: { $0.isVisible && $0.canBecomeKey })?.makeKeyAndOrderFront(nil)
+            }
+        }
     }
 
     private func colorField(_ title: String, _ keyPath: WritableKeyPath<ThemeColors, String>) -> some View {
@@ -279,5 +284,10 @@ extension Color {
 
 @main
 struct WorkBuddyThemeStudioApp: App {
-    var body: some Scene { WindowGroup { StudioView() } }
+    var body: some Scene {
+        WindowGroup {
+            StudioView()
+        }
+        .handlesExternalEvents(matching: Set(["workbuddy-theme-studio"]))
+    }
 }
