@@ -43,8 +43,8 @@ The ready-to-apply JSON files live in the skill's `presets/` folder. They intent
 For example, the agent can apply the current pink color preset directly:
 
 ```bash
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mjs" \
-  apply --theme "$CODEX_HOME/skills/workbuddy-theme-manager/presets/rose.json"
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme.mjs" \
+  apply --theme "$HOME/.workbuddy/skills/workbuddy-theme-manager/presets/rose.json"
 ```
 
 ## Wallpaper scopes

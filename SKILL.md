@@ -18,16 +18,18 @@ Use **WorkBuddy Theme Studio.app** as the primary interface. The Skill installs 
 
 ## First-time setup
 
+In WorkBuddy, install this Skill at `$HOME/.workbuddy/skills/workbuddy-theme-manager`. Use that directory for every command below; do not rely on a Codex-only installation variable.
+
 Inspect compatibility before writing:
 
 ```bash
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" inspect
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" inspect
 ```
 
 If compatible, bootstrap Studio and the account-menu entry:
 
 ```bash
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" bootstrap
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" bootstrap
 ```
 
 This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-theme-studio://open`, fully backs up the official app, and inserts **「主题」** immediately below **「外观」** in the account menu. Studio uses one process and one main window: clicking the menu entry again focuses that window. It does not apply a color theme during bootstrap.
@@ -49,14 +51,14 @@ Use direct commands only for diagnosis or recovery, not as a replacement for Stu
 
 ```bash
 # Create or repair only the menu entry, with a full backup first.
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" install-menu
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" install-menu
 
 # Apply a saved JSON config.
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" \
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" \
   apply-official --theme /absolute/path/theme.json
 
 # Restore the exact official application backup; task/project data remains untouched.
-node "$CODEX_HOME/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" restore
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" restore
 ```
 
 ## Compatibility and recovery
