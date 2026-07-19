@@ -285,7 +285,7 @@ extension Color {
 @main
 struct WorkBuddyThemeStudioApp: App {
     var body: some Scene {
-        WindowGroup {
+        Window("WorkBuddy Theme Studio", id: "main") {
             StudioView()
         }
         .handlesExternalEvents(matching: Set(["workbuddy-theme-studio"]))
