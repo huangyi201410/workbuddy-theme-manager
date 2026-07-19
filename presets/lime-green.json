@@ -1,0 +1,15 @@
+{
+  "name": "田曦薇·青柠绿",
+  "wallpaperScope": "home",
+  "colors": {
+    "canvas": "#F4FBE8",
+    "sidebar": "#EAF6D9",
+    "sidebarHover": "#E0F0C8",
+    "sidebarSelected": "#D3E8B4",
+    "accent": "#75AF39",
+    "accentHover": "#5F942B",
+    "text": "#314E1C",
+    "heading": "#527F28",
+    "border": "#C7E1A5"
+  }
+}

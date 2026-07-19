@@ -1,0 +1,15 @@
+{
+  "name": "白敬亭·冰川蓝",
+  "wallpaperScope": "home",
+  "colors": {
+    "canvas": "#F0FAFC",
+    "sidebar": "#E3F4F7",
+    "sidebarHover": "#D7EDF1",
+    "sidebarSelected": "#C8E3E9",
+    "accent": "#2C9AB2",
+    "accentHover": "#217F95",
+    "text": "#174655",
+    "heading": "#206B7C",
+    "border": "#B6DCE4"
+  }
+}
