@@ -5,7 +5,7 @@ import {
   readSync, rmSync, writeFileSync, writeSync
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
-import { basename, dirname, extname, join } from "node:path";
+import { basename, dirname, extname, join, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
@@ -132,10 +132,10 @@ function persistentCss(theme, wallpaperUrl) {
   const selected = `:is(.conversation-list-nav-item.conversation-list-nav-item-active,.conversation-list-tab-button-box.active,.conversation-list-tab-row.active,.conversation-agent-card[class*=selected],.conversation-team-member-button.conversation-team-member--selected){background:${c.sidebarSelected}!important}`;
   return { base, pages, hover, selected };
 }
-function injectIndex(indexHtml, themeCss) {
+function injectIndex(indexHtml, themeCss, trailingScript = "") {
   const stripped = indexHtml.replace(/^\s*<link rel="modulepreload"[^>]*>\s*$/gm, "");
   if (!stripped.includes("</head>")) fail("could not locate renderer document head");
-  return stripped.replace("</head>", `<style id="workbuddy-theme-manager">${themeCss}</style><script>const n="workbuddy-theme-manager",c=document.getElementById(n).textContent;setInterval(()=>{let s=document.getElementById(n);if(!s){s=document.createElement("style");s.id=n;s.textContent=c}if(document.head.lastElementChild!==s)document.head.append(s)},400)</script></head>`);
+  return stripped.replace("</head>", `<style id="workbuddy-theme-manager">${themeCss}</style><script>const n="workbuddy-theme-manager",c=document.getElementById(n).textContent;setInterval(()=>{let s=document.getElementById(n);if(!s){s=document.createElement("style");s.id=n;s.textContent=c}if(document.head.lastElementChild!==s)document.head.append(s)},400)</script>${trailingScript}</head>`);
 }
 function launcherPaths(theme) {
   const safe = slug(theme.name);
@@ -221,8 +221,16 @@ function remove(themeName, purgeData) {
   asJson({ removed: true, theme: theme.name, localDataPurged: Boolean(purgeData), officialAppModified: false });
 }
 
-const { command, flags } = parseArgs(process.argv.slice(2));
-if (command === "inspect") inspect();
-else if (command === "apply") apply(flags.theme, flags.target);
-else if (command === "remove") remove(flags.theme, flags["purge-data"]);
-else { console.error(usage); process.exit(1); }
+export {
+  SOURCE_APP, MANAGER_DIR, appArchive, cssFor, defaults, findPatchCss, getEntry,
+  injectIndex, loadTheme, persistentCss, readArchive, readEntry, replaceSlot,
+  updateIntegrity, writePaddedEntry
+};
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  const { command, flags } = parseArgs(process.argv.slice(2));
+  if (command === "inspect") inspect();
+  else if (command === "apply") apply(flags.theme, flags.target);
+  else if (command === "remove") remove(flags.theme, flags["purge-data"]);
+  else { console.error(usage); process.exit(1); }
+}
