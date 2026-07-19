@@ -1,0 +1,15 @@
+{
+  "name": "刘亦菲·月光蓝",
+  "wallpaperScope": "home",
+  "colors": {
+    "canvas": "#F4F8FF",
+    "sidebar": "#EAF2FF",
+    "sidebarHover": "#DFEAFA",
+    "sidebarSelected": "#D2E1F5",
+    "accent": "#5A8FD8",
+    "accentHover": "#3D6EAF",
+    "text": "#233B5B",
+    "heading": "#315B90",
+    "border": "#C7D9F1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "赵露思·蜜桃黄",
+  "wallpaperScope": "home",
+  "colors": {
+    "canvas": "#FFF8E9",
+    "sidebar": "#FFF0D4",
+    "sidebarHover": "#FFE7BD",
+    "sidebarSelected": "#F9DDB0",
+    "accent": "#F09B3D",
+    "accentHover": "#D98227",
+    "text": "#60401D",
+    "heading": "#A85F1F",
+    "border": "#F3D39A"
+  }
+}
