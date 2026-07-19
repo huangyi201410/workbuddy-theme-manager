@@ -212,6 +212,12 @@ function bootstrap() {
   installStudio(false);
   installMenu();
   run("open", [studioApp]);
+  asJson({
+    installed: true,
+    studioApp,
+    menu: "左下角头像 → 外观 → 主题",
+    nextStep: "主题功能已安装。点击左下角头像，选择外观下的主题，即可打开 WorkBuddy Theme Studio；选择预设或壁纸后，点击“应用到官方 WorkBuddy”才会应用主题。"
+  });
 }
 
 const { command, flags } = parseArgs(process.argv.slice(2));

@@ -1,4 +1,4 @@
 interface:
   display_name: "WorkBuddy Theme Manager"
   short_description: "Install and use WorkBuddy Theme Studio safely."
-  default_prompt: "Use $workbuddy-theme-manager to install WorkBuddy Theme Studio and customize my theme."
+  default_prompt: "Use $workbuddy-theme-manager to install WorkBuddy Theme Studio, then tell me how to open it from 左下角头像 → 外观 → 主题."
