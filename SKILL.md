@@ -37,7 +37,7 @@ This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-t
 1. Click the account avatar in WorkBuddy’s lower-left corner.
 2. Click **主题** below **外观** to open Studio.
 3. Choose Rose, Mint, Lavender, or Sky; optionally select a local wallpaper; then choose 首页 / 全右侧 / 无.
-4. Review the preview. Studio exposes separate `sidebar`, `Hover`, and `Selected` values.
+4. Review the preview. Studio exposes separate `sidebar`, `Hover`, and `Selected` values. Every color row has a clickable native color swatch plus an editable HEX value for exact entry.
 5. Click **应用到官方 WorkBuddy**. Studio closes/restarts WorkBuddy, restores its clean baseline, backs it up if needed, injects the selected theme, and verifies code signing.
 6. Use **恢复官方版本** in Studio to restore the full pre-theme application bundle.
 

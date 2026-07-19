@@ -182,6 +182,9 @@ struct StudioView: View {
                         Button("移除壁纸") { model.clearWallpaper() }.disabled(model.wallpaperPath.isEmpty)
                     }
                     Section("颜色") {
+                        Text("点击色块打开系统取色器；右侧保留 HEX 精确输入。")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                         colorField("主背景", \.canvas)
                         colorField("侧栏", \.sidebar)
                         colorField("Hover", \.sidebarHover)
@@ -223,8 +226,31 @@ struct StudioView: View {
     }
 
     private func colorField(_ title: String, _ keyPath: WritableKeyPath<ThemeColors, String>) -> some View {
-        TextField(title, text: Binding(get: { model.colors[keyPath: keyPath] }, set: { model.colors[keyPath: keyPath] = $0.uppercased() }))
+        HStack(spacing: 12) {
+            ColorPicker("", selection: colorBinding(keyPath), supportsOpacity: false)
+                .labelsHidden()
+                .accessibilityLabel(title)
+                .frame(width: 30)
+            Text(title).frame(maxWidth: .infinity, alignment: .leading)
+            TextField("#RRGGBB", text: Binding(
+                get: { model.colors[keyPath: keyPath] },
+                set: { model.colors[keyPath: keyPath] = $0.uppercased() }
+            ))
             .textFieldStyle(.roundedBorder)
+            .multilineTextAlignment(.trailing)
+            .frame(width: 132)
+        }
+    }
+
+    private func colorBinding(_ keyPath: WritableKeyPath<ThemeColors, String>) -> Binding<Color> {
+        Binding(
+            get: { Color(hex: model.colors[keyPath: keyPath]) },
+            set: { color in
+                if let hex = NSColor(color).hexString {
+                    model.colors[keyPath: keyPath] = hex
+                }
+            }
+        )
     }
 
     private var preview: some View {
@@ -279,6 +305,18 @@ extension Color {
         let value = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         let number = UInt64(value, radix: 16) ?? 0
         self.init(.sRGB, red: Double((number >> 16) & 255) / 255, green: Double((number >> 8) & 255) / 255, blue: Double(number & 255) / 255, opacity: 1)
+    }
+}
+
+extension NSColor {
+    var hexString: String? {
+        guard let rgb = usingColorSpace(.sRGB) else { return nil }
+        return String(
+            format: "#%02X%02X%02X",
+            Int((rgb.redComponent * 255).rounded()),
+            Int((rgb.greenComponent * 255).rounded()),
+            Int((rgb.blueComponent * 255).rounded())
+        )
     }
 }
 
