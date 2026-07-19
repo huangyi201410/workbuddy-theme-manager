@@ -28,6 +28,11 @@ function run(command, args, options = {}) { return execFileSync(command, args, {
 function quiet(command, args) { try { return execFileSync(command, args, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim(); } catch { return ""; } }
 function asJson(value) { console.log(JSON.stringify(value, null, 2)); }
 function macOnly() { if (process.platform !== "darwin") fail("this Studio mode supports macOS only"); }
+function registerStudioUrlScheme() {
+  const lsregister = "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister";
+  if (!existsSync(lsregister)) fail("macOS Launch Services registration tool is unavailable");
+  run(lsregister, ["-f", studioApp]);
+}
 function parseArgs(argv) {
   const [command, ...rest] = argv;
   const flags = {};
@@ -162,6 +167,7 @@ function installStudio(openAfter = false) {
     for (const name of readdirSync(join(scriptDir, "..", "presets"))) copyFileSync(join(scriptDir, "..", "presets", name), join(presetResources, name));
     run(swift, [source, "-parse-as-library", "-o", join(macos, "WorkBuddyThemeStudio"), "-framework", "SwiftUI", "-framework", "AppKit"]);
     run("codesign", ["--force", "--deep", "--sign", "-", studioApp]);
+    registerStudioUrlScheme();
     if (openAfter) run("open", [studioApp]);
     asJson({ installed: true, studioApp, urlScheme: "workbuddy-theme-studio://open", engine: join(scriptDir, "workbuddy-theme-studio.mjs") });
   } finally { rmSync(temporary, { recursive: true, force: true }); }
