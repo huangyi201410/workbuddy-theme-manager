@@ -1,0 +1,15 @@
+{
+  "name": "Rose",
+  "wallpaperScope": "home",
+  "colors": {
+    "canvas": "#FFF1F6",
+    "sidebar": "#FFEDF4",
+    "sidebarHover": "#F9E9EF",
+    "sidebarSelected": "#F3E5EA",
+    "accent": "#F13D72",
+    "accentHover": "#DF275F",
+    "text": "#5B2035",
+    "heading": "#AE1949",
+    "border": "#F1CBD7"
+  }
+}
