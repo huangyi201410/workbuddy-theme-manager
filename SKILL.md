@@ -38,7 +38,7 @@ This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-t
 
 1. Click the account avatar in WorkBuddy’s lower-left corner.
 2. Click **主题** below **外观** to open Studio.
-3. Choose 汪苏泷·罗曼粉、刘亦菲·月光蓝、白敬亭·冰川蓝、赵露思·蜜桃黄、檀健次·暮光紫 or 田曦薇·青柠绿; optionally select a local wallpaper; then choose 首页 / 全右侧 / 无. **全右侧** puts the wallpaper on the complete right-side Main Content background layer; opaque cards and inputs remain readable above it.
+3. Choose 罗曼粉、月光蓝、冰川蓝、蜜桃黄、暮光紫 or 青柠绿; optionally select a local wallpaper; then choose 首页 / 全右侧 / 无. **全右侧** puts the wallpaper on the complete right-side Main Content background layer; opaque cards and inputs remain readable above it.
 4. Review the preview. Studio exposes separate `sidebar`, `Hover`, and `Selected` values. Every color row has a clickable native color swatch plus an editable HEX value for exact entry.
 5. Click **应用到官方 WorkBuddy**. Studio closes/restarts WorkBuddy, restores its clean baseline, backs it up if needed, injects the selected theme, and verifies code signing.
 6. Use **恢复官方版本** in Studio to restore the full pre-theme application bundle.

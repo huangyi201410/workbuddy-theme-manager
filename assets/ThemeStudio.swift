@@ -31,8 +31,8 @@ struct ThemeConfig: Codable {
 @MainActor
 final class StudioModel: ObservableObject {
     @Published var presets: [ThemePreset] = []
-    @Published var selectedPreset = "汪苏泷·罗曼粉"
-    @Published var themeName = "汪苏泷·罗曼粉"
+    @Published var selectedPreset = "罗曼粉"
+    @Published var themeName = "罗曼粉"
     @Published var wallpaperPath = ""
     @Published var wallpaperScope = "home"
     @Published var colors = ThemeColors()
@@ -41,7 +41,7 @@ final class StudioModel: ObservableObject {
 
     init() {
         loadPresets()
-        choosePreset("汪苏泷·罗曼粉")
+        choosePreset("罗曼粉")
     }
 
     var previewImage: NSImage? {
@@ -52,7 +52,7 @@ final class StudioModel: ObservableObject {
     func loadPresets() {
         guard let root = Bundle.main.resourceURL?.appendingPathComponent("presets"),
               let files = try? FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) else { return }
-        let order = ["汪苏泷·罗曼粉", "刘亦菲·月光蓝", "白敬亭·冰川蓝", "赵露思·蜜桃黄", "檀健次·暮光紫", "田曦薇·青柠绿"]
+        let order = ["罗曼粉", "月光蓝", "冰川蓝", "蜜桃黄", "暮光紫", "青柠绿"]
         presets = files.compactMap { url in
             guard url.pathExtension == "json", let data = try? Data(contentsOf: url) else { return nil }
             return try? JSONDecoder().decode(ThemePreset.self, from: data)
