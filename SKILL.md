@@ -34,6 +34,10 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-st
 
 This creates `~/Applications/WorkBuddy Theme Studio.app`, registers `workbuddy-theme-studio://open`, fully backs up the official app, and inserts **「主题」** immediately below **「外观」** in the account menu. Studio uses one process and one main window: clicking the menu entry again focuses that window. It does not apply a color theme during bootstrap.
 
+## Required installation handoff
+
+After a first-time `bootstrap` succeeds, always tell the user in Chinese that the theme feature is installed and give this exact route: **左下角头像 → 外观 → 主题**. Explain that this opens WorkBuddy Theme Studio, where they can choose a preset or wallpaper, preview it, and click **应用到官方 WorkBuddy**; no theme is applied merely by installing the Skill.
+
 ## Normal user flow
 
 1. Click the account avatar in WorkBuddy’s lower-left corner.
@@ -69,6 +73,6 @@ WorkBuddy updates can replace the injected renderer assets. On a version change,
 
 - [Theme configuration schema and presets](references/theme-config.md)
 - `assets/ThemeStudio.swift` — the lightweight native Studio UI compiled during setup.
-- `presets/*.json` — bundled color presets; wallpapers remain user-local.
+- `presets/*.json` — bundled color presets, including the wallpapers supplied for selected presets.
 - `scripts/workbuddy-theme-studio.mjs` — Studio installer, backup, injection, and restore engine.
 - `scripts/workbuddy-theme.mjs` — safe separate-app fallback.
