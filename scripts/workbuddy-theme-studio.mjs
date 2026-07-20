@@ -21,7 +21,8 @@ const usage = `Usage:
   workbuddy-theme-studio.mjs bootstrap
   workbuddy-theme-studio.mjs install-menu
   workbuddy-theme-studio.mjs apply-official --theme /absolute/path/theme.json
-  workbuddy-theme-studio.mjs restore`;
+  workbuddy-theme-studio.mjs restore
+  workbuddy-theme-studio.mjs uninstall`;
 
 function fail(message) { console.error(`WorkBuddy Theme Studio: ${message}`); process.exit(1); }
 function run(command, args, options = {}) { return execFileSync(command, args, { stdio: "inherit", ...options }); }
@@ -32,6 +33,11 @@ function registerStudioUrlScheme() {
   const lsregister = "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister";
   if (!existsSync(lsregister)) fail("macOS Launch Services registration tool is unavailable");
   run(lsregister, ["-f", studioApp]);
+}
+function unregisterStudioUrlScheme() {
+  const lsregister = "/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister";
+  if (!existsSync(lsregister) || !existsSync(studioApp)) return;
+  try { run(lsregister, ["-u", studioApp]); } catch { /* Removing the app still clears the usable handler. */ }
 }
 function parseArgs(argv) {
   const [command, ...rest] = argv;
@@ -208,6 +214,31 @@ function restore() {
   run("open", [core.SOURCE_APP]);
   asJson({ restored: true, sourceApp: core.SOURCE_APP, backupRetained: state.backupApp, officialAppModified: false });
 }
+function uninstall() {
+  macOnly();
+  const state = readState();
+  const hasBackup = Boolean(state?.backupApp && existsSync(state.backupApp));
+  const sourceArchive = core.appArchive(core.SOURCE_APP);
+  const patched = existsSync(sourceArchive) && appIsPatched();
+  if (patched && !hasBackup) {
+    fail("cannot safely uninstall because WorkBuddy is patched but the Studio backup is unavailable; restore or reinstall WorkBuddy before uninstalling Studio");
+  }
+  if (hasBackup) {
+    if (!existsSync(sourceArchive)) fail(`official WorkBuddy app not found: ${core.SOURCE_APP}`);
+    quitWorkBuddy();
+    replaceOfficialApp(state.backupApp);
+    run("open", [core.SOURCE_APP]);
+  }
+  unregisterStudioUrlScheme();
+  rmSync(studioApp, { recursive: true, force: true });
+  rmSync(studioRoot, { recursive: true, force: true });
+  asJson({
+    uninstalled: true,
+    officialAppRestored: hasBackup,
+    removed: [studioApp, studioRoot],
+    message: "WorkBuddy Theme Studio 已卸载；主题菜单入口已移除，WorkBuddy 已恢复官方版本。任务和项目数据未被修改。"
+  });
+}
 function bootstrap() {
   installStudio(false);
   installMenu();
@@ -227,4 +258,5 @@ else if (command === "bootstrap") bootstrap();
 else if (command === "install-menu") installMenu();
 else if (command === "apply-official") applyOfficial(flags.theme);
 else if (command === "restore") restore();
+else if (command === "uninstall") uninstall();
 else { console.error(usage); process.exit(1); }

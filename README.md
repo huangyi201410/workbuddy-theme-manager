@@ -95,6 +95,22 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-st
 node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" inspect
 ```
 
+## 卸载 WorkBuddy Theme Studio
+
+在 WorkBuddy / Codex 对话中明确提出“卸载 WorkBuddy Theme Studio”，Skill 会执行安全卸载。也可以在终端运行：
+
+```bash
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" uninstall
+```
+
+卸载会依次：
+
+1. 恢复备份的官方 `WorkBuddy.app`，移除账号菜单中的 **主题** 入口。
+2. 删除 `~/Applications/WorkBuddy Theme Studio.app`。
+3. 删除 `~/Library/Application Support/WorkBuddy Theme Studio/` 中的主题设置和应用包备份。
+
+任务、项目、账号和其他 WorkBuddy 用户数据不会删除。若检测到已注入主题但找不到匹配备份，卸载会停止而不删除 Studio，以避免无法恢复官方版本；此时应先恢复或重装 WorkBuddy。
+
 ## 项目结构
 
 ```text
