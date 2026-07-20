@@ -73,13 +73,24 @@ final class StudioModel: ObservableObject {
     func chooseWallpaper() {
         let panel = NSOpenPanel()
         panel.title = "选择主题壁纸"
+        panel.message = "选择一张图片作为 WorkBuddy 壁纸"
+        panel.prompt = "选择壁纸"
         panel.canChooseDirectories = false
         panel.canChooseFiles = true
         panel.allowsMultipleSelection = false
+        panel.allowsOtherFileTypes = false
         panel.allowedContentTypes = [.image]
-        if panel.runModal() == .OK, let url = panel.url {
-            wallpaperPath = url.path
-            status = "已选择壁纸：(url.lastPathComponent)"
+        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+
+        if let window = NSApp.keyWindow ?? NSApp.mainWindow ?? NSApp.windows.first(where: { $0.isVisible }) {
+            panel.beginSheetModal(for: window) { [weak self] response in
+                guard response == .OK, let url = panel.url else { return }
+                Task { @MainActor [weak self] in
+                    self?.setWallpaper(url)
+                }
+            }
+        } else if panel.runModal() == .OK, let url = panel.url {
+            setWallpaper(url)
         }
     }
 
@@ -129,6 +140,11 @@ final class StudioModel: ObservableObject {
               let root = Bundle.main.resourceURL?.appendingPathComponent("presets", isDirectory: true) else { return "" }
         let url = root.appendingPathComponent(relativePath)
         return FileManager.default.fileExists(atPath: url.path) ? url.path : ""
+    }
+
+    private func setWallpaper(_ url: URL) {
+        wallpaperPath = url.path
+        status = "已选择壁纸：(url.lastPathComponent)"
     }
 
     private func writeThemeConfig() throws -> URL {
