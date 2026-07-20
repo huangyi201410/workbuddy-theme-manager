@@ -69,6 +69,22 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-st
 
 再次点击 **主题** 会聚焦已打开的 Studio，不会创建多个窗口。
 
+## 效果示例
+
+下面是通过 Theme Studio 应用不同预设后的 WorkBuddy 首页效果。主题只改变颜色、壁纸和交互状态，不会改变原有功能与布局。
+
+### 罗曼粉
+
+![罗曼粉主题效果](assets/readme/preview-roman-pink.png)
+
+### 暮光紫
+
+![暮光紫主题效果](assets/readme/preview-twilight-purple.png)
+
+### 青柠绿
+
+![青柠绿主题效果](assets/readme/preview-lime-green.png)
+
 ## 内置预设
 
 | 预设 | 预设壁纸 | 色彩方向 |
