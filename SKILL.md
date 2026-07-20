@@ -1,6 +1,6 @@
 ---
 name: workbuddy-theme-manager
-description: Install, operate, update, or recover WorkBuddy Theme Studio on macOS. Use when the user asks to change WorkBuddy's wallpaper, color palette, sidebar hover/selected states, presets, preview, account-menu theme entry, or to back up and restore a locally themed official WorkBuddy app.
+description: Install, operate, update, uninstall, or recover WorkBuddy Theme Studio on macOS. Use when the user asks to change WorkBuddy's wallpaper, color palette, sidebar hover/selected states, presets, preview, account-menu theme entry, or to back up, restore, or uninstall a locally themed official WorkBuddy app.
 ---
 
 # WorkBuddy Theme Manager
@@ -63,7 +63,15 @@ node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-st
 
 # Restore the exact official application backup; task/project data remains untouched.
 node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" restore
+
+# Run only after the user clearly asks to uninstall. This restores WorkBuddy, removes
+# the menu entry, then deletes Theme Studio, its local settings, and its app backup.
+node "$HOME/.workbuddy/skills/workbuddy-theme-manager/scripts/workbuddy-theme-studio.mjs" uninstall
 ```
+
+## Uninstall workflow
+
+Run `uninstall` only after the user explicitly asks to remove WorkBuddy Theme Studio. It restores the backed-up official WorkBuddy app first, which removes the **主题** account-menu entry, then deletes `~/Applications/WorkBuddy Theme Studio.app` and `~/Library/Application Support/WorkBuddy Theme Studio/` (including theme settings and the app-bundle backup). Never delete the Studio if WorkBuddy is patched but its matching backup is unavailable; report that recovery is required instead. Tasks, projects, accounts, and user content are not touched.
 
 ## Compatibility and recovery
 
@@ -74,5 +82,5 @@ WorkBuddy updates can replace the injected renderer assets. On a version change,
 - [Theme configuration schema and presets](references/theme-config.md)
 - `assets/ThemeStudio.swift` — the lightweight native Studio UI compiled during setup.
 - `presets/*.json` — bundled color presets, including the wallpapers supplied for selected presets.
-- `scripts/workbuddy-theme-studio.mjs` — Studio installer, backup, injection, and restore engine.
+- `scripts/workbuddy-theme-studio.mjs` — Studio installer, backup, injection, restore, and uninstall engine.
 - `scripts/workbuddy-theme.mjs` — safe separate-app fallback.
